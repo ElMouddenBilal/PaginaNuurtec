@@ -1,0 +1,86 @@
+# =====================================================
+# 🌞 Nuurtec Project — Optimized .gitignore
+# React + Vite + Tailwind + Vercel
+# =====================================================
+
+# === Logs ===
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# === Node modules ===
+node_modules/
+
+# === Build output ===
+dist/
+dist-ssr/
+.vite/
+.vite-temp/
+.cache/
+tmp/
+temp/
+*.tmp
+
+# === Environment files (⚠️ sensitive keys) ===
+.env
+.env.*
+!.env.example
+
+# === Local config / OS files ===
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# === Editor / IDE ===
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.iml
+
+# === Package manager lock files ===
+# (optional: uncomment one if you want to lock dependencies)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# === Test / Reports ===
+coverage/
+*.lcov
+reports/
+
+# === Backups / archives ===
+*.zip
+*.tar
+*.gz
+*.7z
+*.bak
+*.old
+
+# === System cache ===
+npm-cache/
+yarn-cache/
+.pnpm-store/
+*.pid
+*.seed
+
+# === Misc ===
+*.orig
+*.local
+*.env.backup
+*.log.old
+
+# === Optional generated assets ===
+# (If you generate temporary images or mock files)
+# /public/test/
+# /src/assets/temp/

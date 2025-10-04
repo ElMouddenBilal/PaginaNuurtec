@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-600: #16a34a; /* tu verde */
+}
+
+html {
+  scroll-behavior: smooth;
+}
