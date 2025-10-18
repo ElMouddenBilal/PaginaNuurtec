@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Building2, Globe, User, Briefcase, Phone, Mail, Layers } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const JoinForm = ({ onClose }) => {
   const [formData, setFormData] = useState({
@@ -303,7 +304,7 @@ const JoinForm = ({ onClose }) => {
         required
       />
 
-      {/* ✅ Legal consent checkbox (obligatorio) */}
+      {/* ✅ Legal consent checkbox (SPA link) */}
       <div className="flex items-start space-x-2 text-xs sm:text-sm">
         <input
           type="checkbox"
@@ -315,14 +316,12 @@ const JoinForm = ({ onClose }) => {
         />
         <label htmlFor="privacy" className="text-gray-600">
           I have read and agree to the{" "}
-          <a
-            href="/legal/privacidad"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/legal/privacidad"
             className="text-emerald-600 underline hover:text-emerald-700"
           >
             Privacy Policy
-          </a>{" "}
+          </Link>{" "}
           and consent to the processing of my data to manage my application.
         </label>
       </div>

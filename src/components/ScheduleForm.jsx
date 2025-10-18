@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { User, Mail, PhoneCall } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const ScheduleForm = ({ onClose }) => {
   const [formData, setFormData] = useState({ name: "", email: "" });
@@ -72,10 +73,8 @@ const ScheduleForm = ({ onClose }) => {
         fd.append("tookSeconds", String(Math.round(took)));
         fd.append("ua", navigator.userAgent);
         fd.append("path", location.pathname);
-        // Nota: NO seteamos Content-Type a mano → el navegador lo hace (multipart/form-data)
 
         await fetch(url, { method: "POST", body: fd });
-        // La respuesta puede ser opaca; si no hay error de red asumimos OK.
         setSubmitted(true);
         return;
       }
@@ -197,7 +196,7 @@ const ScheduleForm = ({ onClose }) => {
         />
       </div>
 
-      {/* ✅ Legal consent checkbox */}
+      {/* ✅ Legal consent checkbox (SPA link) */}
       <div className="flex items-start space-x-2 text-sm">
         <input
           type="checkbox"
@@ -207,14 +206,12 @@ const ScheduleForm = ({ onClose }) => {
         />
         <label htmlFor="privacy" className="text-gray-600">
           I have read and agree to the{" "}
-          <a
-            href="/legal/privacidad"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/legal/privacidad"
             className="text-green-600 underline hover:text-green-700"
           >
             Privacy Policy
-          </a>{" "}
+          </Link>{" "}
           and consent to the processing of my data for contact purposes.
         </label>
       </div>
