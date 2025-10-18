@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LogoNuurtec from '../assets/LogoNuurtec.png';
 import LogoNuurtecSinTexto from '../assets/LogoNuurtecSinTextoPng.png';
 
@@ -7,11 +8,14 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const navItems = [
-    { label: 'Why Nuurtec', href: '#problem-solution' },
-    { label: 'How It Works', href: '#how-it-works' },
-    { label: 'Who is it for', href: '#benefits' },
-    { label: 'FAQ', href: '#faq' },
+    { label: 'Why Nuurtec', id: 'problem-solution' },
+    { label: 'How It Works', id: 'how-it-works' },
+    { label: 'Who is it for', id: 'benefits' },
+    { label: 'FAQ', id: 'faq' },
   ];
 
   // Cambia estilo al hacer scroll
@@ -32,6 +36,39 @@ const Navbar = () => {
     };
   }, [isMenuOpen]);
 
+  // 🔹 Función general de scroll a sección
+  const scrollToSection = (sectionId) => {
+    const doScroll = () => {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        const nav = document.querySelector('nav');
+        const offset = (nav ? nav.getBoundingClientRect().height : 64) + 16;
+        const y = el.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+      } else {
+        window.location.hash = sectionId;
+      }
+    };
+
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(doScroll, 400);
+    } else {
+      doScroll();
+    }
+  };
+
+  // 🔹 Logo: si estás en home, hace scroll hasta la hero; si no, vuelve a home
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => scrollToSection('home'), 400);
+    } else {
+      scrollToSection('home');
+    }
+  };
+
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 h-20 px-4 sm:px-6 transition-all duration-300 ${
@@ -39,9 +76,9 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between h-full">
-        {/* Logo con link a Hero */}
+        {/* Logo (scroll a hero o volver a home) */}
         <div className="flex items-center">
-          <a href="#home">
+          <a href="/" onClick={handleLogoClick} aria-label="Go to home">
             <img
               src={LogoNuurtec}
               alt="NUURTEC Logo"
@@ -53,9 +90,9 @@ const Navbar = () => {
         {/* Links desktop */}
         <div className="hidden lg:flex items-center justify-center flex-1 space-x-8 mx-12">
           {navItems.map((item) => (
-            <a
+            <button
               key={item.label}
-              href={item.href}
+              onClick={() => scrollToSection(item.id)}
               className={`transition-all duration-300 font-medium ${
                 isScrolled
                   ? 'text-gray-900 hover:text-green-600'
@@ -63,18 +100,18 @@ const Navbar = () => {
               }`}
             >
               {item.label}
-            </a>
+            </button>
           ))}
         </div>
 
         {/* Apply to Join (desktop) */}
         <div className="hidden lg:flex items-center gap-4">
-          <a
-            href="#apply"
+          <button
+            onClick={() => scrollToSection('apply')}
             className="px-6 py-2.5 rounded-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700"
           >
             Apply to Join
-          </a>
+          </button>
         </div>
 
         {/* Botón hamburguesa móvil */}
@@ -103,7 +140,7 @@ const Navbar = () => {
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
               <div className="flex items-center">
-                <a href="#home" onClick={() => setIsMenuOpen(false)}>
+                <a href="/" onClick={handleLogoClick} aria-label="Go to home">
                   <img
                     src={LogoNuurtecSinTexto}
                     alt="NUURTEC Logo Isotipo"
@@ -123,26 +160,39 @@ const Navbar = () => {
             {/* Links navegación */}
             <nav className="flex flex-col px-6 pt-6">
               {navItems.map((item) => (
-                <a
+                <button
                   key={item.label}
-                  href={item.href}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => {
+                    scrollToSection(item.id);
+                    setIsMenuOpen(false);
+                  }}
                   className="w-full text-left text-lg font-semibold py-3.5 border-b border-white/10 hover:bg-white/5 transition-colors"
                 >
                   {item.label}
-                </a>
+                </button>
               ))}
+              <button
+                onClick={() => {
+                  scrollToSection('apply');
+                  setIsMenuOpen(false);
+                }}
+                className="w-full text-left text-lg font-semibold py-3.5 border-b border-white/10 hover:bg-white/5 transition-colors"
+              >
+                Apply to Join
+              </button>
             </nav>
 
             {/* CTA Apply to Join */}
             <div className="mt-auto px-6 pb-8">
-              <a
-                href="#apply"
-                onClick={() => setIsMenuOpen(false)}
+              <button
+                onClick={() => {
+                  scrollToSection('apply');
+                  setIsMenuOpen(false);
+                }}
                 className="w-full block text-center bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-4 rounded-xl font-semibold text-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg"
               >
                 Apply to Join
-              </a>
+              </button>
             </div>
           </div>
         </div>

@@ -1,9 +1,16 @@
 import React from 'react';
 import { Mail, Phone, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import LogoNuurtec from '../assets/LogoNuurtec.png';
 
 const Footer = () => {
   const year = new Date().getFullYear();
+
+  // 🔝 Subir al inicio al hacer clic en cualquier enlace legal
+  const scrollTop = () => {
+    // Usa 'auto' si no quieres animación
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  };
 
   return (
     <footer id="contact" className="relative bg-gray-950 text-white overflow-hidden">
@@ -28,7 +35,7 @@ const Footer = () => {
               </div>
             </div>
 
-            <p className="text-gray-300 text-lg leading-relaxed max-w-lg mb-8">
+            <p className="text-gray-3 00 text-lg leading-relaxed max-w-lg mb-8">
               Revolutionizing the solar industry through strategic B2B connections, verified partnerships,
               and AI-powered supply chain optimization.
             </p>
@@ -47,12 +54,20 @@ const Footer = () => {
               <a href="#faq" className="block text-gray-400 hover:text-green-400 transition-all duration-300 hover:translate-x-1">
                 FAQ
               </a>
-              <a href="#privacy" className="block text-gray-400 hover:text-green-400 transition-all duration-300 hover:translate-x-1">
+
+              {/* 🔽 Enlaces legales: navegan y fuerzan scroll al inicio */}
+              <Link to="/legal/aviso-legal" onClick={scrollTop} className="block text-gray-400 hover:text-green-400 transition-all duration-300 hover:translate-x-1">
+                Legal Notice
+              </Link>
+              <Link to="/legal/privacidad" onClick={scrollTop} className="block text-gray-400 hover:text-green-400 transition-all duration-300 hover:translate-x-1">
                 Privacy Policy
-              </a>
-              <a href="#terms" className="block text-gray-400 hover:text-green-400 transition-all duration-300 hover:translate-x-1">
+              </Link>
+              <Link to="/legal/cookies" onClick={scrollTop} className="block text-gray-400 hover:text-green-400 transition-all duration-300 hover:translate-x-1">
+                Cookies Policy
+              </Link>
+              <Link to="/legal/terminos" onClick={scrollTop} className="block text-gray-400 hover:text-green-400 transition-all duration-300 hover:translate-x-1">
                 Terms of Service
-              </a>
+              </Link>
             </nav>
           </div>
 
