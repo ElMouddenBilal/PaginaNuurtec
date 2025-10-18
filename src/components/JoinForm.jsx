@@ -316,7 +316,7 @@ const JoinForm = ({ onClose }) => {
         <label htmlFor="privacy" className="text-gray-600">
           I have read and agree to the{" "}
           <a
-            href="/privacy-policy"
+            href="/legal/privacidad"
             target="_blank"
             rel="noopener noreferrer"
             className="text-emerald-600 underline hover:text-emerald-700"
